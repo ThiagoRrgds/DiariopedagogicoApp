@@ -4,13 +4,15 @@ import com.thiagoRrgds.diariopedagogico.Dto.TurmaDTO;
 import com.thiagoRrgds.diariopedagogico.Repository.TurmaRepository;
 import com.thiagoRrgds.diariopedagogico.entity.Turma;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class TurmaService {
+
     private final TurmaRepository turmaRepository;
 
     public List<TurmaDTO.Response> listarTodos() {
@@ -52,7 +54,6 @@ public class TurmaService {
 
     public void deletar(Long id) {
 
-        // verifica se existe antes de tentar deletar
         if (!turmaRepository.existsById(id)) {
             throw new RuntimeException("Turma não encontrada");
         }
