@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class AlunoDTO {
 
@@ -25,7 +26,8 @@ public class AlunoDTO {
             String nome,
             String matricula,
             LocalDate dataNascimento,
-            TurmaDTO.Response turma
+            String nomeTurma,
+            Integer totalPresencas
     ) {
     }
 }
