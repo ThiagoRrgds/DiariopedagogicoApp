@@ -1,4 +1,4 @@
-package com.thiagoRrgds.diariopedagogico.Dto;
+package com.thiagoRrgds.diariopedagogico.dto;
 
 import com.thiagoRrgds.diariopedagogico.entity.Turno;
 import jakarta.validation.constraints.NotBlank;

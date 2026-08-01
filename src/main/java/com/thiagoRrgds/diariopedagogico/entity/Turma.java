@@ -33,7 +33,7 @@ public class Turma {
     @Column(nullable = false,columnDefinition = "VARCHAR(20)")
     private Turno turno;
 
-    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
     private List<Aluno> alunos =  new ArrayList<>();
 
     @OneToMany(mappedBy = "turma",cascade = CascadeType.ALL, orphanRemoval = true)

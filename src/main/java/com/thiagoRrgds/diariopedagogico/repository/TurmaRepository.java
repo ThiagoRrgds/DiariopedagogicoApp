@@ -1,4 +1,4 @@
-package com.thiagoRrgds.diariopedagogico.Repository;
+package com.thiagoRrgds.diariopedagogico.repository;
 
 import com.thiagoRrgds.diariopedagogico.entity.Turma;
 import org.springframework.data.jpa.repository.JpaRepository;

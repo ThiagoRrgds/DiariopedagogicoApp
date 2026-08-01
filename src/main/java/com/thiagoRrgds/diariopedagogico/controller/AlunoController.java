@@ -1,16 +1,17 @@
-package com.thiagoRrgds.diariopedagogico.Controller;
+package com.thiagoRrgds.diariopedagogico.controller;
 
-import com.thiagoRrgds.diariopedagogico.Dto.AlunoDTO;
-import com.thiagoRrgds.diariopedagogico.Service.AlunoService;
+import com.thiagoRrgds.diariopedagogico.dto.AlunoDTO;
+import com.thiagoRrgds.diariopedagogico.service.AlunoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/aluno")
+@RequestMapping("/api/alunos")
 @RequiredArgsConstructor
 public class AlunoController {
     private final AlunoService alunoService;
@@ -27,11 +28,11 @@ public class AlunoController {
 
     @PostMapping
     public ResponseEntity<AlunoDTO.Response> criar(@RequestBody @Valid AlunoDTO.Request dto){
-        return ResponseEntity.status(201).body(alunoService.criar(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(alunoService.criar(dto));
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<AlunoDTO.Response> atualizar(Long id, AlunoDTO.Request dto){
+    @PutMapping("/{id}")
+    public ResponseEntity<AlunoDTO.Response> atualizar(@PathVariable Long id,  @RequestBody @Valid AlunoDTO.Request dto){
         return ResponseEntity.ok(alunoService.atualizar(id, dto));
     }
 

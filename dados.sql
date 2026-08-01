@@ -371,9 +371,7 @@ INSERT INTO aulas (data, disciplina, conteudo, turma_id) VALUES
 ('2025-03-17', 'Sociologia',   'Movimentos sociais',           10);
 
 -- ==========================================
--- FREQUÊNCIAS (variadas: PRESENTE, JUSTIFICADO, AUSENTE)
--- Para economizar espaço, inserimos por blocos de aula
--- Padrão: maioria PRESENTE, alguns AUSENTE, poucos JUSTIFICADO
+-- FREQUÊNCIAS (armazenadas como VARCHAR(20))
 -- ==========================================
 
 -- Aula 1 — Matemática 1ºA (27 alunos, ids 1-27)

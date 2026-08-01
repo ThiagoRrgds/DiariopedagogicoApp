@@ -1,7 +1,7 @@
-package com.thiagoRrgds.diariopedagogico.Controller;
+package com.thiagoRrgds.diariopedagogico.controller;
 
-import com.thiagoRrgds.diariopedagogico.Dto.TurmaDTO;
-import com.thiagoRrgds.diariopedagogico.Service.TurmaService;
+import com.thiagoRrgds.diariopedagogico.dto.TurmaDTO;
+import com.thiagoRrgds.diariopedagogico.service.TurmaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/turma")
+@RequestMapping("/api/turmas")
 @RequiredArgsConstructor
 public class TurmaController {
     private final TurmaService turmaService;

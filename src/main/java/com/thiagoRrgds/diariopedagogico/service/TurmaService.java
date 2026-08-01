@@ -1,7 +1,7 @@
-package com.thiagoRrgds.diariopedagogico.Service;
+package com.thiagoRrgds.diariopedagogico.service;
 
-import com.thiagoRrgds.diariopedagogico.Dto.TurmaDTO;
-import com.thiagoRrgds.diariopedagogico.Repository.TurmaRepository;
+import com.thiagoRrgds.diariopedagogico.dto.TurmaDTO;
+import com.thiagoRrgds.diariopedagogico.repository.TurmaRepository;
 import com.thiagoRrgds.diariopedagogico.entity.Turma;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,9 @@ public class TurmaService {
 
     public List<TurmaDTO.Response> listarTodos() {
         return turmaRepository.findAll()
-                .stream()                        // percorre a lista
-                .map(this::toResponse)           // converte cada Turma em Response
-                .toList();                       // coleta o resultado em uma lista
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     public TurmaDTO.Response buscarPorId(Long id) {
@@ -66,7 +66,7 @@ public class TurmaService {
                 turma.getNome(),
                 turma.getAnoLetivo(),
                 turma.getTurno(),
-                turma.getAlunos().size() // conta os alunos vinculados à turma
+                turma.getAlunos().size()
         );
     }
 }

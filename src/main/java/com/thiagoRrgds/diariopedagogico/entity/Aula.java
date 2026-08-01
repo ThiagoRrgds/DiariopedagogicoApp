@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -34,4 +36,7 @@ public class Aula {
     @JoinColumn(name = "turma_id")
     @NotNull
     private Turma turma;
+
+    @OneToMany(mappedBy = "aula", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Frequencia> frequencias = new ArrayList<>();
 }

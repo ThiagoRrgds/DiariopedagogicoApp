@@ -38,6 +38,6 @@ public class Aluno {
     private Turma turma;
 
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Frequencia> presencas;
+    private List<Frequencia> presencas = new ArrayList<>();
 
 }

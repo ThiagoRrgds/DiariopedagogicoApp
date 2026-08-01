@@ -1,8 +1,8 @@
-package com.thiagoRrgds.diariopedagogico.Service;
+package com.thiagoRrgds.diariopedagogico.service;
 
-import com.thiagoRrgds.diariopedagogico.Dto.AlunoDTO;
-import com.thiagoRrgds.diariopedagogico.Repository.AlunoRepository;
-import com.thiagoRrgds.diariopedagogico.Repository.TurmaRepository;
+import com.thiagoRrgds.diariopedagogico.dto.AlunoDTO;
+import com.thiagoRrgds.diariopedagogico.repository.AlunoRepository;
+import com.thiagoRrgds.diariopedagogico.repository.TurmaRepository;
 import com.thiagoRrgds.diariopedagogico.entity.Aluno;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,12 +28,16 @@ public class AlunoService {
         return toResponse(aluno);
     }
     public AlunoDTO.Response criar(AlunoDTO.Request dto){
+        if (alunoRepository.existsByMatricula(dto.matricula())){
+            throw new RuntimeException("matricula já cadastrada");
+        };
         Aluno aluno = new Aluno();
         aluno.setNome(dto.nome());
         aluno.setMatricula(dto.matricula());
         aluno.setDataNascimento(dto.dataNascimento());
         aluno.setTurma(turmaRepository.findById(dto.idTurma())
                 .orElseThrow(()-> new RuntimeException("Turma not found")));
+
 
         return toResponse(alunoRepository.save(aluno));
     }
@@ -64,7 +68,7 @@ public class AlunoService {
                 aluno.getMatricula(),
                 aluno.getDataNascimento(),
                 aluno.getTurma().getNome(),
-                aluno.getPresencas().size()
+                aluno.getPresencas() != null? aluno.getPresencas().size() : 0
         );
     }
 }
