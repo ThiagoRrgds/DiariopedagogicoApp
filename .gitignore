@@ -34,7 +34,7 @@ build/
 .yml
 # Ignora credenciais e configurações locais da aplicação
 application.yml
-application-*.yml
+application.yaml
 
 # Ignora o docker-compose local
 docker-compose.yml

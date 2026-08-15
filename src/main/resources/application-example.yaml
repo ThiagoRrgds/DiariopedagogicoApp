@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: diario-pedagogico
+
+  # ── Banco de dados
+  datasource:
+    url: jdbc:mysql://localhost:3306/diario_pedagogico?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo
+    username: diario_app
+    password: moneyandcash
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # ── JPA / Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: update        # update → mantém dados; create → recria tudo; none → não mexe
+    show-sql: true            # exibe as queries no console
+    properties:
+      hibernate:
+        format_sql: true      # formata as queries para facilitar leitura
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  # ── Jackson (serialização JSON)
+  jackson:
+    date-format: yyyy-MM-dd           # formato de datas
+    time-zone: America/Sao_Paulo      # fuso horário do Brasil
+    default-property-inclusion: non_null  # não retorna campos null no JSON
+
+# ── Porta do servidor
+server:
+  port: 8080
+
+# ── Logs
+logging:
+  level:
+    root: INFO
+    com.thiagoRrgds.diariopedagogico: DEBUG   # debug apenas no seu pacote
+    org.hibernate.SQL: DEBUG                  # exibe SQLs
+    org.hibernate.type.descriptor.sql: TRACE  # exibe parâmetros das queries
