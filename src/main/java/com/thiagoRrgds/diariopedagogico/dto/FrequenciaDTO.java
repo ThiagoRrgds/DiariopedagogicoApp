@@ -22,18 +22,18 @@ public class FrequenciaDTO {
             String observacao,
             Long aulaId,
             Long alunoId,
-            String nomeAluno,
+            String alunoNome,
             boolean contaComoPresenca
     ) {}
 
+    public record LoteRequest(
+        @NotEmpty @Valid List<ItemLoteRequest>lancamentos
+    ){}
+
     public record ItemLoteRequest(
-            @NotNull Long idAluno,
+            @NotNull Long alunoId,
             @NotNull StatusFrequencia status,
             String observacao
     ){}
 
-    public record LoteRequest(
-        @NotNull Long aulaId,
-        @NotEmpty @Valid List<ItemLoteRequest>lancamentos
-    ){}
 }

@@ -22,36 +22,17 @@ public class FrequenciaService {
     private final AlunoRepository alunoRepository;
 
 
-    public FrequenciaDTO.Response RegistrarFrequencia(FrequenciaDTO.Request dto){
-        Aula aula = aulaRepository.findById(dto.idAula())
-                .orElseThrow(() -> new RuntimeException("aula não encontrada"));
-
-        Aluno aluno = alunoRepository.findById(dto.idAluno())
-                .orElseThrow(()-> new RuntimeException("aluno não encontrado"));
-
-        if (frenquenciaRepository.existsByAlunoAndAula(aluno, aula)){
-            throw new RuntimeException("Frequencia já registrada para este aluno nesta aula");
-        }
-        Frequencia frequencia = new Frequencia();
-        frequencia.setAluno(aluno);
-        frequencia.setAula(aula);
-        frequencia.setStatus(dto.status());
-        frequencia.setObservacao(dto.observacao());
-
-        return toResponse(frenquenciaRepository.save(frequencia));
-    }
-
-    public List<FrequenciaDTO.Response> frequenciaPorLote( FrequenciaDTO.LoteRequest dto){
-        Aula aula = aulaRepository.findById(dto.aulaId())
+    public List<FrequenciaDTO.Response> registrarFrequenciaPorLote(Long aulaId,FrequenciaDTO.LoteRequest dto){
+        Aula aula = aulaRepository.findById(aulaId)
                 .orElseThrow(()-> new RuntimeException("aula nao encontrada"));
 
         List<Frequencia> frequencias = dto.lancamentos().stream()
                 .map(itemLoteRequest -> {
-                    Aluno aluno = alunoRepository.findById(itemLoteRequest.idAluno())
+                    Aluno aluno = alunoRepository.findById(itemLoteRequest.alunoId())
                             .orElseThrow(()-> new RuntimeException("aluno nao encontrado"));
 
                     if (!aluno.getTurma().getId().equals(aula.getTurma().getId())){
-                        throw new RuntimeException("aluno " + itemLoteRequest.idAluno() + "nao pertence a turma desta aula");
+                        throw new RuntimeException("aluno " + itemLoteRequest.alunoId() + " nao pertence a turma desta aula");
                     }
                     Frequencia frequencia = frenquenciaRepository
                             .findByAulaAndAluno(aula,aluno)

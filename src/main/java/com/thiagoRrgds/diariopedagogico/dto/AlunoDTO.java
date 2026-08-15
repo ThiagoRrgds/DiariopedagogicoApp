@@ -26,7 +26,7 @@ public class AlunoDTO {
             String nome,
             String matricula,
             LocalDate dataNascimento,
-            String nomeTurma,
+            String turmaNome,
             Integer totalPresencas
     ) {
     }

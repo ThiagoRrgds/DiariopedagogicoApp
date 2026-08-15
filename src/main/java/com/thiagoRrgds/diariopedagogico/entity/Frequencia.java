@@ -23,8 +23,7 @@ public class Frequencia {
     @Column(nullable = false,columnDefinition = "VARCHAR(20)")
     private StatusFrequencia status;
 
-    @NotNull
-    @Column(nullable = false)
+    @Column
     private String observacao;
 
     @NotNull
