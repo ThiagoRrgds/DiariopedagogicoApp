@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 public class AlunoDTO {
 
-    // Utilizado para criação e atualização (POST / PUT)
     public record Request(
             @NotBlank String nome,
 
@@ -20,7 +19,6 @@ public class AlunoDTO {
             @NotNull Long idTurma
     ) {}
 
-    // Utilizado para retorno da API (GET / POST response)
     public record Response(
             Long id,
             String nome,
