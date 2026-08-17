@@ -1,6 +1,7 @@
 package com.thiagoRrgds.diariopedagogico.service;
 
 import com.thiagoRrgds.diariopedagogico.dto.TurmaDTO;
+import com.thiagoRrgds.diariopedagogico.exception.NotFoundException;
 import com.thiagoRrgds.diariopedagogico.repository.TurmaRepository;
 import com.thiagoRrgds.diariopedagogico.entity.Turma;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class TurmaService {
 
     public TurmaDTO.Response buscarPorId(Long id) {
         Turma turma = turmaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Turma não encontrada"));
         return toResponse(turma);
     }
 
@@ -42,7 +43,7 @@ public class TurmaService {
     public TurmaDTO.Response atualizar(Long id, TurmaDTO.Request dto) {
 
         Turma turma = turmaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Turma não encontrada"));
 
 
         turma.setNome(dto.nome());
@@ -55,7 +56,7 @@ public class TurmaService {
     public void deletar(Long id) {
 
         if (!turmaRepository.existsById(id)) {
-            throw new RuntimeException("Turma não encontrada");
+            throw new NotFoundException("Turma não encontrada");
         }
         turmaRepository.deleteById(id);
     }

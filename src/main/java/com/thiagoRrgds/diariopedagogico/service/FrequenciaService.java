@@ -1,6 +1,7 @@
 package com.thiagoRrgds.diariopedagogico.service;
 
 import com.thiagoRrgds.diariopedagogico.dto.FrequenciaDTO;
+import com.thiagoRrgds.diariopedagogico.exception.NotFoundException;
 import com.thiagoRrgds.diariopedagogico.repository.AlunoRepository;
 import com.thiagoRrgds.diariopedagogico.repository.AulaRepository;
 import com.thiagoRrgds.diariopedagogico.entity.Aluno;
@@ -24,15 +25,15 @@ public class FrequenciaService {
 
     public List<FrequenciaDTO.Response> registrarFrequenciaPorLote(Long aulaId,FrequenciaDTO.LoteRequest dto){
         Aula aula = aulaRepository.findById(aulaId)
-                .orElseThrow(()-> new RuntimeException("aula nao encontrada"));
+                .orElseThrow(()-> new NotFoundException("aula nao encontrada"));
 
         List<Frequencia> frequencias = dto.lancamentos().stream()
                 .map(itemLoteRequest -> {
                     Aluno aluno = alunoRepository.findById(itemLoteRequest.alunoId())
-                            .orElseThrow(()-> new RuntimeException("aluno nao encontrado"));
+                            .orElseThrow(()-> new NotFoundException("aluno nao encontrado"));
 
                     if (!aluno.getTurma().getId().equals(aula.getTurma().getId())){
-                        throw new RuntimeException("aluno " + itemLoteRequest.alunoId() + " nao pertence a turma desta aula");
+                        throw new NotFoundException("aluno " + itemLoteRequest.alunoId() + " nao pertence a turma desta aula");
                     }
                     Frequencia frequencia = frenquenciaRepository
                             .findByAulaAndAluno(aula,aluno)
@@ -55,7 +56,7 @@ public class FrequenciaService {
 
     public List<FrequenciaDTO.Response> listarPorAula(Long aulaId){
         Aula aula = aulaRepository.findById(aulaId)
-                .orElseThrow(()-> new RuntimeException("Aula not found"));
+                .orElseThrow(()-> new NotFoundException("Aula not found"));
 
         return frenquenciaRepository.findByAula(aula)
                 .stream()
@@ -65,7 +66,7 @@ public class FrequenciaService {
 
     public List<FrequenciaDTO.Response> listarPorAluno(Long alunoId){
         Aluno aluno = alunoRepository.findById(alunoId)
-                .orElseThrow(()-> new RuntimeException("Aluno not found"));
+                .orElseThrow(()-> new NotFoundException("Aluno not found"));
         return frenquenciaRepository.findByAluno(aluno)
                 .stream()
                 .map(this::toResponse)
@@ -74,7 +75,7 @@ public class FrequenciaService {
 
     public FrequenciaDTO.Response atualizar(Long id, FrequenciaDTO.Request dto){
         Frequencia frequencia = frenquenciaRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Frequencia not found"));
+                .orElseThrow(()-> new NotFoundException("Frequencia not found"));
         frequencia.setStatus(dto.status());
         frequencia.setObservacao(dto.observacao());
 
@@ -83,7 +84,7 @@ public class FrequenciaService {
 
     public double calcularPorcentual(Long alunoId){
         Aluno aluno = alunoRepository.findById(alunoId)
-                .orElseThrow(()-> new RuntimeException("Aluno not found"));
+                .orElseThrow(()-> new NotFoundException("Aluno not found"));
         List<Frequencia> frequencias = frenquenciaRepository.findByAluno(aluno);
 
         if (frequencias.isEmpty()) return 0;
